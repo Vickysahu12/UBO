@@ -12,7 +12,7 @@ const navLinks = [
   { label: 'Stories', href: '#stories' },
 ]
 
-const GET_STARTED_URL = 'https://your-app-url.com'
+const GET_STARTED_URL = 'https://obu-job-9xt6.vercel.app/login'
 
 function NavLink({ href, children, onClick }) {
   return (
