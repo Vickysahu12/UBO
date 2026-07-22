@@ -11,13 +11,16 @@ import FinalCTA from './components/sections/FinalCTA.jsx'
 
 export default function App() {
   return (
-    <div className="min-h-screen bg-cream">
+    <div className="min-h-screen w-full overflow-x-hidden bg-cream">
       <Navbar />
-      <main>
+
+      <main className="w-full overflow-x-hidden">
         <Hero />
+
         <div className="mt-8">
           <StatsBar />
         </div>
+
         <Solutions />
         <HowItWorks />
         <Features />
@@ -25,6 +28,7 @@ export default function App() {
         <Partners />
         <FinalCTA />
       </main>
+
       <Footer />
     </div>
   )

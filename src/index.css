@@ -70,3 +70,18 @@ button:focus-visible {
   from { transform: translateX(0); }
   to { transform: translateX(-50%); }
 }
+
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+
+body {
+  @apply bg-cream text-ink font-body antialiased;
+  overflow-x: hidden;
+}
+
+#root {
+  width: 100%;
+  overflow-x: hidden;
+}
