@@ -1,0 +1,72 @@
+@import "tailwindcss";
+
+@theme {
+  --color-cream: #FCF3E7;
+  --color-cream-soft: #F7EAD8;
+  --color-cream-card: #FFFFFF;
+
+  --color-ink: #241609;
+  --color-ink-muted: #8A7A6C;
+
+  --color-clay: #EA6423;
+  --color-clay-dark: #C2500F;
+  --color-clay-light: #FDEADB;
+
+  --color-forest: #1F6B45;
+  --color-forest-light: #E7F3EA;
+
+  --font-display: "Plus Jakarta Sans", sans-serif;
+  --font-body: "Inter", sans-serif;
+
+  --radius-xl2: 1.75rem;
+
+  --shadow-soft: 0 8px 30px -8px rgba(36, 22, 9, 0.15);
+  --shadow-card: 0 4px 24px -6px rgba(36, 22, 9, 0.08);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply bg-cream text-ink font-body antialiased;
+}
+
+h1, h2, h3, h4 {
+  @apply font-display;
+}
+
+::selection {
+  @apply bg-clay/20 text-ink;
+}
+
+/* Focus visibility for accessibility */
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid #EA6423;
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Marquee for trusted-partners strip */
+.marquee-track {
+  animation: marquee 28s linear infinite;
+}
+.marquee-track:hover {
+  animation-play-state: paused;
+}
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
