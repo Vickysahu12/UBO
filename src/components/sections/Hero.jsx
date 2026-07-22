@@ -104,13 +104,25 @@ export default function Hero() {
             recruiters find the perfect talent, faster.
           </motion.p>
 
-          <motion.div variants={fadeUp} className="mt-8 flex flex-wrap justify-center gap-3 lg:justify-start">
-            <Button variant="primary">I'm a Student</Button>
-            <Button variant="secondary" icon={false}>
-              I'm a Recruiter
-            </Button>
-          </motion.div>
+          <motion.div
+  variants={fadeUp}
+  className="mt-8 flex flex-wrap justify-center gap-3 lg:justify-start"
+>
+  <Button
+    as="a"
+    href="https://obu-job-9xt6.vercel.app/login"
+    variant="primary"
+  >
+    I'm a Student
+  </Button>
 
+  <Button
+    variant="secondary"
+    icon={false}
+  >
+    I'm a Recruiter
+  </Button>
+</motion.div>
           <motion.div variants={fadeUp} className="mt-8 flex items-center justify-center gap-3 lg:justify-start">
             <div className="flex -space-x-3">
               {avatars.map((src, i) => (
