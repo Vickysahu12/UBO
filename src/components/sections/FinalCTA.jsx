@@ -3,6 +3,7 @@ import { PlayCircle } from 'lucide-react'
 import Button from '../ui/Button.jsx'
 import MascotImage from '../ui/MascotImage.jsx'
 import { fadeUp, viewportOnce } from '../../lib/animations.js'
+import obu4 from "../../assets/images/obu2.webp"
 
 export default function FinalCTA() {
   return (
@@ -15,7 +16,7 @@ export default function FinalCTA() {
         className="flex flex-col items-center gap-8 overflow-hidden rounded-3xl bg-cream-soft p-10 sm:flex-row sm:justify-between lg:p-14"
       >
         <MascotImage
-          src={null}
+          src={obu4}
           alt="Mascot winking and giving a thumbs up"
           className="h-40 w-40 shrink-0 object-contain sm:h-48 sm:w-48"
         />

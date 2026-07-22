@@ -1,5 +1,6 @@
 import { FaFacebook, FaLinkedin, FaTwitter, FaInstagram } from 'react-icons/fa'
 import Button from '../ui/Button.jsx'
+import obu4 from "../../assets/images/obu4.webp"
 
 const columns = [
   {
@@ -22,16 +23,23 @@ const columns = [
 
 export default function Footer() {
   return (
-    <footer className="bg-white/60 pt-16">
-      <div className="mx-auto max-w-6xl px-6 lg:px-10">
+    <footer className="relative overflow-hidden bg-white/60 pt-16">
+      {/* background image — subtle, fades into the cream bg so text stays crisp */}
+      <div aria-hidden className="pointer-events-none absolute inset-0 -z-0">
+        <img
+          src={obu4}
+          alt=""
+          className="h-full w-full object-cover opacity-[0.12]"
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-cream/80 to-cream" />
+      </div>
+
+      <div className="relative z-10 mx-auto max-w-6xl px-6 lg:px-10">
         {/* Logo + link columns */}
         <div className="grid grid-cols-2 gap-10 pb-12 sm:grid-cols-3 lg:grid-cols-6">
           <div className="col-span-2 sm:col-span-3 lg:col-span-2">
             <div className="flex items-center gap-2">
-              <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-ink text-cream font-display font-bold">
-                H
-              </div>
-              <span className="font-display text-lg font-bold text-ink">HireSwipe</span>
+              <span className="font-display text-lg font-bold text-ink">OBU</span>
             </div>
             <p className="mt-3 max-w-[280px] text-sm leading-relaxed text-ink/55">
               Connecting talent with opportunity and building careers, together.
@@ -94,7 +102,7 @@ export default function Footer() {
         </div>
 
         <div className="border-t border-ink/10 py-6 text-center text-xs text-ink/40">
-          © {new Date().getFullYear()} HireSwipe. All rights reserved.
+          © {new Date().getFullYear()} OBU. All rights reserved.
         </div>
       </div>
     </footer>

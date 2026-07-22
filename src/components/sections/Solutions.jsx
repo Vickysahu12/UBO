@@ -21,7 +21,7 @@ const recruiterPoints = [
   'Build your employer brand',
 ]
 
-function SolutionCard({ id, icon: Icon, iconBg, iconColor, title, description, points, ctaLabel, cardBg, mascotAlt }) {
+function SolutionCard({ id, icon: Icon, iconBg, iconColor, title, description, points, ctaLabel, cardBg, mascotSrc, mascotAlt }) {
   return (
     <motion.div
       id={id}
@@ -50,7 +50,7 @@ function SolutionCard({ id, icon: Icon, iconBg, iconColor, title, description, p
       </div>
 
       <MascotImage
-        src={obu1}
+        src={mascotSrc}
         alt={mascotAlt}
         className="h-56 w-full shrink-0 object-contain sm:h-64 sm:w-56"
       />
@@ -91,6 +91,7 @@ export default function Solutions() {
           points={studentPoints}
           ctaLabel="Explore for Students"
           cardBg="bg-cream-soft"
+          mascotSrc={obu1}
           mascotAlt="Mascot sitting with a laptop, backpack beside them"
         />
         <SolutionCard
@@ -103,6 +104,7 @@ export default function Solutions() {
           points={recruiterPoints}
           ctaLabel="Explore for Recruiters"
           cardBg="bg-forest-light"
+          mascotSrc={obu4}
           mascotAlt="Mascot in a blazer holding a tablet"
         />
       </motion.div>

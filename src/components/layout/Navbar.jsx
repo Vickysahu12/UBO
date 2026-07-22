@@ -46,7 +46,7 @@ export default function Navbar() {
       <nav className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 lg:px-10">
         <a href="#" className="flex items-center gap-2">
           <img src={obu} alt="UBO logo" className="h-9 w-9 rounded-xl object-cover" />
-          <span className="font-display text-lg font-bold text-ink">UBO</span>
+          <span className="font-display text-lg font-bold text-ink">OBU</span>
         </a>
 
         <div className="hidden items-center gap-8 lg:flex">

@@ -27,63 +27,13 @@ export default function Hero() {
   }, [])
 
   return (
-    <section className="relative overflow-hidden pt-10 pb-10 lg:pt-16">
+    <section className="relative overflow-hidden pt-6 pb-6 lg:pt-16 lg:pb-10">
       {/* ambient background glow — the one place we spend "decoration" budget */}
       <div className="pointer-events-none absolute -right-40 top-0 h-[560px] w-[560px] rounded-full bg-clay/10 blur-3xl" />
 
-      <div className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-12 px-6 lg:grid-cols-2 lg:gap-8 lg:px-10">
-        {/* Left: copy */}
-        <motion.div
-          variants={fadeUpStagger(0.12)}
-          initial="hidden"
-          animate="show"
-          className="relative z-10"
-        >
-          <motion.div variants={fadeUp}>
-            <Eyebrow>AI-powered job matching platform</Eyebrow>
-          </motion.div>
-
-          <motion.h1
-            variants={fadeUp}
-            className="mt-5 text-[42px] font-extrabold leading-[1.08] tracking-tight text-ink sm:text-5xl lg:text-[56px]"
-          >
-            Where Talent
-            <br />
-            Meets <span className="text-clay">Opportunity.</span>
-          </motion.h1>
-
-          <motion.p variants={fadeUp} className="mt-5 max-w-md text-[17px] leading-relaxed text-ink/60">
-            HireSwipe connects students with the right opportunities and helps
-            recruiters find the perfect talent, faster.
-          </motion.p>
-
-          <motion.div variants={fadeUp} className="mt-8 flex flex-wrap gap-3">
-            <Button variant="primary">I'm a Student</Button>
-            <Button variant="secondary" icon={false}>
-              I'm a Recruiter
-            </Button>
-          </motion.div>
-
-          <motion.div variants={fadeUp} className="mt-8 flex items-center gap-3">
-            <div className="flex -space-x-3">
-              {avatars.map((src, i) => (
-                <img
-                  key={i}
-                  src={src}
-                  alt=""
-                  className="h-9 w-9 rounded-full border-2 border-cream object-cover"
-                />
-              ))}
-            </div>
-            <p className="text-sm text-ink/60">
-              Trusted by <span className="font-semibold text-ink">20,000+</span> students
-              and <span className="font-semibold text-clay">1,000+</span> companies
-            </p>
-          </motion.div>
-        </motion.div>
-
-        {/* Right: mascot with cycling frames */}
-        <div className="relative z-10 flex justify-center lg:justify-end">
+      <div className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-4 px-6 lg:grid-cols-2 lg:gap-8 lg:px-10">
+        {/* Right: mascot with cycling frames — shown first on mobile, second on desktop */}
+        <div className="relative z-10 order-1 flex justify-center lg:order-2 lg:justify-end">
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -94,7 +44,7 @@ export default function Hero() {
             <motion.div
               animate={{ y: [0, -14, 0] }}
               transition={{ duration: 4.5, repeat: Infinity, ease: 'easeInOut' }}
-              className="relative h-[300px] w-[260px] sm:h-[400px] sm:w-[350px] lg:h-[520px] lg:w-[460px]"
+              className="relative h-[220px] w-[190px] sm:h-[320px] sm:w-[280px] lg:h-[520px] lg:w-[460px]"
             >
               {/* AnimatePresence crossfades between frames — no hard cut, no layout jump */}
               <AnimatePresence mode="sync">
@@ -128,6 +78,56 @@ export default function Hero() {
             </motion.div>
           </motion.div>
         </div>
+
+        {/* Left: copy — shown second on mobile, first on desktop */}
+        <motion.div
+          variants={fadeUpStagger(0.12)}
+          initial="hidden"
+          animate="show"
+          className="relative z-10 order-2 text-center lg:order-1 lg:text-left"
+        >
+          <motion.div variants={fadeUp} className="flex justify-center lg:justify-start">
+            <Eyebrow>AI-powered job matching platform</Eyebrow>
+          </motion.div>
+
+          <motion.h1
+            variants={fadeUp}
+            className="mt-5 text-[34px] font-extrabold leading-[1.1] tracking-tight text-ink sm:text-5xl lg:text-[56px]"
+          >
+            Where Talent
+            <br />
+            Meets <span className="text-clay">Opportunity.</span>
+          </motion.h1>
+
+          <motion.p variants={fadeUp} className="mx-auto mt-5 max-w-md text-[16px] leading-relaxed text-ink/60 lg:mx-0 lg:text-[17px]">
+            HireSwipe connects students with the right opportunities and helps
+            recruiters find the perfect talent, faster.
+          </motion.p>
+
+          <motion.div variants={fadeUp} className="mt-8 flex flex-wrap justify-center gap-3 lg:justify-start">
+            <Button variant="primary">I'm a Student</Button>
+            <Button variant="secondary" icon={false}>
+              I'm a Recruiter
+            </Button>
+          </motion.div>
+
+          <motion.div variants={fadeUp} className="mt-8 flex items-center justify-center gap-3 lg:justify-start">
+            <div className="flex -space-x-3">
+              {avatars.map((src, i) => (
+                <img
+                  key={i}
+                  src={src}
+                  alt=""
+                  className="h-9 w-9 rounded-full border-2 border-cream object-cover"
+                />
+              ))}
+            </div>
+            <p className="text-sm text-ink/60">
+              Trusted by <span className="font-semibold text-ink">20,000+</span> students
+              and <span className="font-semibold text-clay">1,000+</span> companies
+            </p>
+          </motion.div>
+        </motion.div>
       </div>
     </section>
   )

@@ -1,6 +1,6 @@
-import { useState, useEffect, useRef, useCallback } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
-import { ChevronLeft, ChevronRight, Quote } from 'lucide-react'
+import { useState } from 'react'
+import { motion } from 'framer-motion'
+import { Quote } from 'lucide-react'
 import { fadeUp, viewportOnce } from '../../lib/animations.js'
 
 const testimonials = [
@@ -24,116 +24,75 @@ const testimonials = [
   },
 ]
 
-const AUTOPLAY_DELAY = 5000
+// duplicated a few times so the loop never runs out of cards on wide screens
+const track = [...testimonials, ...testimonials, ...testimonials, ...testimonials]
 
 export default function Testimonials() {
-  const [index, setIndex] = useState(0)
-  const [direction, setDirection] = useState(1)
   const [isPaused, setIsPaused] = useState(false)
-  const timeoutRef = useRef(null)
-
-  const go = useCallback((dir) => {
-    setDirection(dir)
-    setIndex((prev) => (prev + dir + testimonials.length) % testimonials.length)
-  }, [])
-
-  const goTo = useCallback((targetIndex) => {
-    setDirection(targetIndex > index ? 1 : -1)
-    setIndex(targetIndex)
-  }, [index])
-
-  // Autoplay loop — resets whenever index changes or pause state changes
-  useEffect(() => {
-    if (isPaused) return
-    timeoutRef.current = setTimeout(() => go(1), AUTOPLAY_DELAY)
-    return () => clearTimeout(timeoutRef.current)
-  }, [index, isPaused, go])
-
-  const current = testimonials[index]
 
   return (
-    <section id="stories" className="mx-auto max-w-4xl px-6 py-24 lg:px-10">
+    <section id="stories" className="py-24 lg:py-32">
       <motion.div
         initial="hidden"
         whileInView="show"
         viewport={viewportOnce}
         variants={fadeUp}
-        className="mb-10 flex items-center justify-between"
+        className="mx-auto mb-10 max-w-4xl px-6 text-left lg:px-10"
       >
+        <span className="mb-2 inline-block text-xs font-semibold uppercase tracking-[0.18em] text-clay">
+          zero paid actors, we promise
+        </span>
         <h2 className="font-display text-2xl font-extrabold text-ink sm:text-3xl">
           Loved by students and recruiters
         </h2>
-        <div className="flex gap-2">
-          <button
-            onClick={() => go(-1)}
-            aria-label="Previous testimonial"
-            className="flex h-9 w-9 items-center justify-center rounded-full border border-ink/15 text-ink/60 transition-colors hover:bg-white"
-          >
-            <ChevronLeft className="h-4 w-4" />
-          </button>
-          <button
-            onClick={() => go(1)}
-            aria-label="Next testimonial"
-            className="flex h-9 w-9 items-center justify-center rounded-full border border-ink/15 text-ink/60 transition-colors hover:bg-white"
-          >
-            <ChevronRight className="h-4 w-4" />
-          </button>
-        </div>
       </motion.div>
 
-      <div
-        className="relative min-h-[220px] overflow-hidden rounded-3xl bg-white p-8 shadow-card sm:p-10"
-        onMouseEnter={() => setIsPaused(true)}
-        onMouseLeave={() => setIsPaused(false)}
-      >
-        <Quote className="absolute right-8 top-8 h-10 w-10 text-clay-light" strokeWidth={1.5} />
-        <AnimatePresence mode="wait" custom={direction}>
-          <motion.div
-            key={index}
-            custom={direction}
-            initial={{ opacity: 0, x: direction * 30 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: direction * -30 }}
-            transition={{ duration: 0.35, ease: 'easeInOut' }}
-          >
-            <p className="max-w-lg font-display text-lg font-medium leading-relaxed text-ink sm:text-xl">
-              "{current.quote}"
-            </p>
-            <div className="mt-6 flex items-center gap-3">
-              <img src={current.avatar} alt="" className="h-11 w-11 rounded-full object-cover" />
-              <div>
-                <p className="text-sm font-semibold text-ink">{current.name}</p>
-                <p className="text-xs text-ink/50">{current.role}</p>
+      <div className="relative [mask-image:linear-gradient(90deg,transparent,black_4%,black_96%,transparent)]">
+        <div
+          className="testimonial-marquee flex w-max gap-6 px-6 lg:px-10"
+          style={{ animationPlayState: isPaused ? 'paused' : 'running' }}
+          onMouseEnter={() => setIsPaused(true)}
+          onMouseLeave={() => setIsPaused(false)}
+        >
+          {track.map((t, i) => (
+            <div
+              key={`${t.name}-${i}`}
+              tabIndex={0}
+              className="group flex w-[300px] shrink-0 flex-col rounded-3xl bg-white p-6 shadow-card transition-all duration-300 ease-out hover:-translate-y-1.5 sm:w-[340px] sm:p-8"
+            >
+              <Quote
+                className="mb-3 h-9 w-9 text-clay-light transition-colors duration-300 group-hover:text-clay"
+                strokeWidth={1.5}
+              />
+              <p className="mb-5 font-display text-base font-medium leading-relaxed text-ink sm:text-lg">
+                "{t.quote}"
+              </p>
+              <div className="mt-auto flex items-center gap-3 border-t border-ink/10 pt-4">
+                <img
+                  src={t.avatar}
+                  alt=""
+                  className="h-10 w-10 shrink-0 rounded-full object-cover"
+                  onError={(e) => (e.currentTarget.style.display = 'none')}
+                />
+                <div>
+                  <p className="text-sm font-semibold text-ink">{t.name}</p>
+                  <p className="text-xs text-ink/50">{t.role}</p>
+                </div>
               </div>
             </div>
-          </motion.div>
-        </AnimatePresence>
-
-        {/* progress dots — also clickable to jump directly */}
-        <div className="absolute bottom-6 left-8 flex gap-2 sm:left-10">
-          {testimonials.map((_, i) => (
-            <button
-              key={i}
-              onClick={() => goTo(i)}
-              aria-label={`Go to testimonial ${i + 1}`}
-              className="group relative h-1.5 w-6 overflow-hidden rounded-full bg-ink/10"
-            >
-              {i === index && !isPaused && (
-                <motion.span
-                  key={`${index}-progress`}
-                  initial={{ scaleX: 0 }}
-                  animate={{ scaleX: 1 }}
-                  transition={{ duration: AUTOPLAY_DELAY / 1000, ease: 'linear' }}
-                  className="absolute inset-0 origin-left rounded-full bg-clay"
-                />
-              )}
-              {i === index && isPaused && (
-                <span className="absolute inset-0 rounded-full bg-clay" />
-              )}
-            </button>
           ))}
         </div>
       </div>
+
+      <style>{`
+        @keyframes testimonial-scroll {
+          from { transform: translateX(0); }
+          to { transform: translateX(-25%); }
+        }
+        .testimonial-marquee {
+          animation: testimonial-scroll 64s linear infinite;
+        }
+      `}</style>
     </section>
   )
 }
